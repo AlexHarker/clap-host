@@ -9,10 +9,6 @@
 PluginQuickControlsWidget::PluginQuickControlsWidget(QWidget *parent, PluginHost &pluginHost)
    : QWidget(parent), _pluginHost(pluginHost) {
    _chooser = new QComboBox(this);
-   connect(_chooser,
-           &QComboBox::activated,
-           this,
-           &PluginQuickControlsWidget::selectPageFromChooser);
 
    for (auto &qc : _controls)
       qc = new PluginQuickControlWidget(this, pluginHost);
@@ -29,6 +25,19 @@ PluginQuickControlsWidget::PluginQuickControlsWidget(QWidget *parent, PluginHost
    vbox->addLayout(grid);
    vbox->setSpacing(3);
    setLayout(vbox);
+
+   connect(
+      _chooser, &QComboBox::activated, this, &PluginQuickControlsWidget::selectPageFromChooser);
+
+   connect(&pluginHost,
+           &PluginHost::quickControlsPagesChanged,
+           this,
+           &PluginQuickControlsWidget::pagesChanged);
+
+   connect(&pluginHost,
+           &PluginHost::quickControlsSelectedPageChanged,
+           this,
+           &PluginQuickControlsWidget::selectedPageChanged);
 }
 
 void PluginQuickControlsWidget::pagesChanged() {
@@ -41,10 +50,10 @@ void PluginQuickControlsWidget::pagesChanged() {
 }
 
 void PluginQuickControlsWidget::selectedPageChanged() {
-   auto  pageId = _pluginHost.quickControlsSelectedPage();
+   auto pageId = _pluginHost.quickControlsSelectedPage();
    auto &pages = _pluginHost.quickControlsPages();
    auto &params = _pluginHost.params();
-   auto  it = pages.find(pageId);
+   auto it = pages.find(pageId);
 
    for (int i = 0; i < CLAP_QUICK_CONTROLS_COUNT; ++i) {
       PluginParam *param = nullptr;
@@ -61,6 +70,7 @@ void PluginQuickControlsWidget::selectedPageChanged() {
 }
 
 void PluginQuickControlsWidget::selectPageFromChooser(int index) {
-    clap_id pageId = _chooser->currentData().toUInt();
-    _pluginHost.setQuickControlsSelectedPageByHost(pageId);
+   clap_id pageId = _chooser->itemData(index).toUInt();
+   _pluginHost.setQuickControlsSelectedPageByHost(pageId);
+   selectedPageChanged();
 }
