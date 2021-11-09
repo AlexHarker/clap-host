@@ -378,6 +378,8 @@ const void *PluginHost::clapExtension(const clap_host *host, const char *extensi
       return &h->_hostLog;
    if (!strcmp(extension, CLAP_EXT_THREAD_CHECK))
       return &h->_hostThreadCheck;
+   if (!strcmp(extension, CLAP_EXT_THREAD_POOL))
+      return &h->_hostThreadPool;
    if (!strcmp(extension, CLAP_EXT_TIMER_SUPPORT))
       return &h->_hostTimerSupport;
    if (!strcmp(extension, CLAP_EXT_FD_SUPPORT))
