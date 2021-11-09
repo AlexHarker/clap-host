@@ -23,6 +23,8 @@ PluginQuickControlWidget::PluginQuickControlWidget(QWidget *parent, PluginHost &
    setPluginParam(nullptr);
 
    connect(_dial, &QDial::valueChanged, this, &PluginQuickControlWidget::dialValueChanged);
+
+   updateAll();
 }
 
 void PluginQuickControlWidget::setPluginParam(PluginParam *param) {
