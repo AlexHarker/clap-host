@@ -22,10 +22,8 @@ brew install pkgconfig
 
 Use the following command inside powershell:
 ```powershell
-git clone https://github.com/free-audio/clap-host
+git clone --recurse-submodules https://github.com/free-audio/clap-host
 cd clap-host
-git submodule init
-git submodule update
 cmake --preset vs-vcpkg
 cmake --build builds\vs-vcpkg --target clap-host --config Release
 $env:QT_PLUGIN_PATH = "$pwd\vcpkg_installed\x64-windows\Qt6\plugins\"
