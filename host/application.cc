@@ -24,7 +24,7 @@ Application::Application(int argc, char **argv)
 
    setOrganizationDomain("github.com/free-audio/clap");
    setOrganizationName("clap");
-   setApplicationName("uhost");
+   setApplicationName("Clap Host");
    setApplicationVersion("1.0");
 
    parseCommandLine();
