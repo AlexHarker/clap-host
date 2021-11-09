@@ -1041,12 +1041,14 @@ void PluginHost::scanQuickControls() {
 
    quickControlsSetSelectedPage(CLAP_INVALID_ID);
    _quickControlsPages.clear();
+   _quickControlsPagesIndex.clear();
 
    const auto N = _pluginQuickControls->count(_plugin);
    if (N == 0)
       return;
 
    _quickControlsPages.reserve(N);
+   _quickControlsPagesIndex.reserve(N);
 
    clap_id firstPageId = CLAP_INVALID_ID;
    for (int i = 0; i < N; ++i) {
@@ -1067,8 +1069,8 @@ void PluginHost::scanQuickControls() {
       if (i == 0)
          firstPageId = page->id;
 
-      auto it = _quickControlsPages.find(page->id);
-      if (it != _quickControlsPages.end()) {
+      auto it = _quickControlsPagesIndex.find(page->id);
+      if (it != _quickControlsPagesIndex.end()) {
          std::ostringstream msg;
          msg << "clap_plugin_quick_controls.get_page(" << i
              << ") gave twice the same page_id:" << page->id << std::endl
@@ -1077,7 +1079,8 @@ void PluginHost::scanQuickControls() {
          throw std::invalid_argument(msg.str());
       }
 
-      _quickControlsPages.insert_or_assign(page->id, std::move(page));
+      _quickControlsPagesIndex.insert_or_assign(page->id, page.get());
+      _quickControlsPages.emplace_back(std::move(page));
    }
 
    quickControlsPagesChanged();
@@ -1092,8 +1095,8 @@ void PluginHost::quickControlsSetSelectedPage(clap_id pageId) {
       return;
 
    if (pageId != CLAP_INVALID_ID) {
-      auto it = _quickControlsPages.find(pageId);
-      if (it == _quickControlsPages.end()) {
+      auto it = _quickControlsPagesIndex.find(pageId);
+      if (it == _quickControlsPagesIndex.end()) {
          std::ostringstream msg;
          msg << "quick control page_id " << pageId << " not found";
          throw std::invalid_argument(msg.str());

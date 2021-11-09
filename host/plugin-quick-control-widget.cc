@@ -9,6 +9,9 @@
 PluginQuickControlWidget::PluginQuickControlWidget(QWidget *parent, PluginHost &pluginHost)
    : QWidget(parent), pluginHost_(pluginHost) {
    _dial = new QDial(this);
+   _dial->setMinimum(0);
+   _dial->setMaximum(DIAL_RANGE);
+
    _label = new QLabel(this);
    _label->setAlignment(Qt::AlignCenter);
 

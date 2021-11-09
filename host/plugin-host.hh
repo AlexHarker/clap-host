@@ -61,6 +61,7 @@ public:
 
    auto &params() const { return _params; }
    auto &quickControlsPages() const { return _quickControlsPages; }
+   auto &quickControlsPagesIndex() const { return _quickControlsPagesIndex; }
    auto quickControlsSelectedPage() const { return _quickControlsSelectedPage; }
    void setQuickControlsSelectedPageByHost(clap_id page_id);
 
@@ -238,7 +239,8 @@ private:
 
    std::unordered_map<clap_id, bool> _isAdjusting;
 
-   std::unordered_map<clap_id, std::unique_ptr<clap_quick_controls_page>> _quickControlsPages;
+   std::vector<std::unique_ptr<clap_quick_controls_page>> _quickControlsPages;
+   std::unordered_map<clap_id, clap_quick_controls_page*> _quickControlsPagesIndex;
    clap_id _quickControlsSelectedPage = CLAP_INVALID_ID;
 
    /* delayed actions */

@@ -44,21 +44,21 @@ void PluginQuickControlsWidget::pagesChanged() {
    auto &pages = _pluginHost.quickControlsPages();
    _chooser->clear();
    for (auto &it : pages)
-      _chooser->addItem(it.second->name, it.second->id);
+      _chooser->addItem(it->name, it->id);
 
    selectedPageChanged();
 }
 
 void PluginQuickControlsWidget::selectedPageChanged() {
    auto pageId = _pluginHost.quickControlsSelectedPage();
-   auto &pages = _pluginHost.quickControlsPages();
+   auto &pagesIndex = _pluginHost.quickControlsPagesIndex();
    auto &params = _pluginHost.params();
-   auto it = pages.find(pageId);
+   auto it = pagesIndex.find(pageId);
 
    for (int i = 0; i < CLAP_QUICK_CONTROLS_COUNT; ++i) {
       PluginParam *param = nullptr;
 
-      if (it != pages.end()) {
+      if (it != pagesIndex.end()) {
          auto paramId = it->second->param_ids[i];
          auto paramIt = params.find(paramId);
          if (paramIt != params.end())
