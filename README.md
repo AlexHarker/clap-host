@@ -26,7 +26,7 @@ git clone --recurse-submodules https://github.com/free-audio/clap-host
 cd clap-host
 cmake --preset vs-vcpkg
 cmake --build builds\vs-vcpkg --target clap-host --config Release
-$env:QT_PLUGIN_PATH = "$pwd\vcpkg_installed\x64-windows\Qt6\plugins\"
+$env:QT_PLUGIN_PATH = "$pwd\builds\vs-vcpkg\vcpkg_installed\x64-windows\Qt6\plugins\"
 
 # run the host
 builds\vs-vcpkg\host\Release\clap-host.exe -p "<path-to-plugin>"
