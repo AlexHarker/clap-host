@@ -30,11 +30,11 @@ jobs:
 
       - name: Setup MacOS
         if: startsWith(matrix.os, 'macOS')
-        run: brew install automake autoconf
+        run: brew install automake autoconf ninja cmake
 
       - name: Setup Ubuntu
         if: startsWith(matrix.os, 'ubuntu')
-        run: sudo apt install gperf
+        run: sudo apt install gperf ninja-build cmake
 
       - name: Restore artifacts, or setup vcpkg for building artifacts
         uses: lukka/run-vcpkg@v10

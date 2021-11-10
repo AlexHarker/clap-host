@@ -78,6 +78,10 @@
         "CMAKE_EXPORT_COMPILE_COMMANDS": {
           "type": "boolean",
           "value": true
+        },
+        "UsePkgConfig": {
+          "type": "boolean",
+          "value": true
         }
       }
     },
@@ -88,6 +92,10 @@
       "generator": "Xcode",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": {
+          "type": "boolean",
+          "value": true
+        },
+        "UsePkgConfig": {
           "type": "boolean",
           "value": true
         }
