@@ -16,10 +16,10 @@ cd clap-host
 
 # Build
 cmake --preset xcode-system
-cmake --build builds\xcode-system --target clap-host --config Release
+cmake --build builds/xcode-system --target clap-host --config Release
 
 # Run
-builds/vs-vcpkg/host/Release/clap-host -p "<path-to-plugin>"
+builds/xcode-system/host/Release/clap-host -p "<path-to-plugin>"
 ```
 
 ### Windows
